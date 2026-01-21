@@ -7,15 +7,22 @@ export default function HostHeader({ system }) {
   const [visible,setVisible] = useState(false)
 
   return (
-    <div className="flex align-items-center gap-2">
+    // <div className="inline-flex align-items-centers gap-2">
+    <div className="flex align-items-center gap-2 white-space-nowrap">
 
-      <h2>{system.hostname || "Loading..."}</h2>
+      <h2
+        className="m-0 text-xl"
+      >
+        System Hostname: {system.hostname || "Loading..."}
+      </h2>
 
-      <Button
-        icon="pi pi-info-circle"
-        text
-        onClick={() => setVisible(true)}
-      />
+        <Button
+          icon="pi pi-info-circle"
+          size="small"
+          severity="help"
+          text
+          onClick={() => setVisible(true)}
+        />
 
       <Dialog
         header="Host Information"
