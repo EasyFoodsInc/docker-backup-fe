@@ -1,9 +1,19 @@
 import psutil
 import socket
 import shutil
+import subprocess
 
 HOST_PROC = "/host/proc"
 HOST_ROOT = "/host/root"
+
+def get_host_ip():
+    try:
+        result = subprocess.check_output(
+            ["sh", "-c", "ip route | awk '/default/ {print $3}'"]
+        )
+        return result.decode().strip()
+    except:
+        return "unknown"
 
 def get_system_info():
 
@@ -36,9 +46,11 @@ def get_system_info():
     finally:
         s.close()
 
+    host_ip = get_host_ip()
+
     return {
         "hostname": hostname,
-        "ip": ip,
+        "ip": host_ip,
         "cpu_percent": cpu_percent,
         "cores": cores,
         "ram_gb": ram_gb,
