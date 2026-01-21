@@ -1,0 +1,101 @@
+##################################
+# OS / Editor
+##################################
+
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+
+##################################
+# Node / Vite / Frontend
+##################################
+
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.cache/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+
+
+##################################
+# Python / Backend
+##################################
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+.env
+.venv/
+venv/
+
+
+##################################
+# FastAPI / Uvicorn
+##################################
+
+backend/logs/
+backend/*.log
+
+
+##################################
+# Database / Runtime Data
+##################################
+
+backend/cache.db
+backend/*.sqlite
+backend/*.sqlite3
+
+
+##################################
+# Docker
+##################################
+
+*.pid
+docker-data/
+volumes/
+data/
+
+
+##################################
+# Backup Data (IMPORTANT)
+##################################
+
+/backupssh/
+/configs/
+
+
+##################################
+# Build Artifacts
+##################################
+
+build/
+dist/
+*.tar.gz
+
+
+##################################
+# Temporary files
+##################################
+
+tmp/
+temp/
+
+
+##################################
+# Environment files
+##################################
+
+.env.local
+.e
+
+docker-compose.yml
