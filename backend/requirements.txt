@@ -1,17 +1,19 @@
-fastapi==0.110.0
-uvicorn[standard]==0.27.1
+fastapi
+uvicorn[standard]
 
 # System info
-psutil==5.9.8
+psutil
 
 # Docker socket access
-docker==7.0.0
+docker
 
 # Database
-sqlalchemy==2.0.25
+sqlalchemy
 
 # Cron human readable
-cron-descriptor==1.4.0
+cron-descriptor
 
 # Multipart (future upload / auth)
-python-multipart==0.0.7
+python-multipart
+
+requests-unixsocket
