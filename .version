@@ -1,0 +1,8 @@
+2026-02-02
+
+  - Add support to read data from:
+    - /configs/params/docker.version
+    - /configs/params/results/status.yml
+    - /configs/params/results/status_detailed.yml
+
+  - Updated backend and composer
