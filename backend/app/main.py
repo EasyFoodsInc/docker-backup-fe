@@ -5,9 +5,14 @@ from .config_parser import parse_config
 from .docker_reader import get_running_containers
 from .system_info import get_system_info
 from .file_scanner import scan_backups
+from .version_parser import parse_container_version
+from .stauts_parser import parse_status_detailed, parse_status
 from .database import SessionLocal, ContainerCache
 
-CONFIG_PATH = "../configs/params/config.ini"
+CONFIG_ROOT = "../configs"
+CONFIG_PATH = f"{CONFIG_ROOT}/params/config.ini"
+VERSION_PATH = f"{CONFIG_ROOT}/params/docker.version/"
+RESULTS_PATH = f"{CONFIG_ROOT}/params/results/"
 
 app = FastAPI(title="Backup Dashboard API")
 
@@ -25,6 +30,18 @@ def system_info():
 @app.get("/api/config")
 def config_data():
     return parse_config(CONFIG_PATH)
+
+@app.get("/api/versions/{container}")
+def container_version(container):
+    return parse_container_version(VERSION_PATH, container)
+
+@app.get("/api/status")
+def status_data():
+    return parse_status(f"{RESULTS_PATH}/status.yml")
+
+@app.get("/api/status_detailed")
+def status_detailed():
+    return parse_status_detailed(f"{RESULTS_PATH}/status_detailed.yml")
 
 @app.get("/api/containers")
 def containers():

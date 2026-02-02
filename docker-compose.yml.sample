@@ -1,17 +1,18 @@
 services:
-
   backend:
     container_name: docker_backup_backend
     build: ./backend
     ports:
-      - "8000:8000"
+      - 8000:8000
     volumes:
-      - /configs/params:/configs/params:ro
-      - /backupssh:/backupssh:ro
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/host/root:ro      
+      - /home/master/docker_backup/config.ini:/app/configs/params/config.ini:ro # config.ini from docker_backup engine
+      - /home/master/docker_backup/docker.version:/configs/params/docker.version:ro # docker.versions
+      - /home/master/docker_backup/result:/app/configs/params/result:ro # results: logs
+      - /backupssh:/backupssh:ro # Backup target, to list files
+      - /var/run/docker.sock:/var/run/docker.sock # Access to Docker socket to read data
+      - /proc:/host/proc:ro # Access to system status
+      - /sys:/host/sys:ro # Access to system status
+      - /:/host/root:ro # Access to system status
       - backend_data:/app
     environment:
       - DOCKER_HOST=unix:///var/run/docker.sock

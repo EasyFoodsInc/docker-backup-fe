@@ -41,7 +41,7 @@ def parse_status_detailed(path):
 
     return table
 
-def parse_last_errors(path, limit=10):
+def parse_status(path, limit=10):
     errors = []
     current_container = None
     current_entry = {}
