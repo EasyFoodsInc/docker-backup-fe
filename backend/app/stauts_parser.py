@@ -1,83 +1,93 @@
+import os
 import json
 
+def parse_status(path):
+    """
+    Reads the whole status.yml file. 
+    Returns a list of entries or [] on error/empty.
+    """
+    if not os.path.exists(path) or os.path.getsize(path) == 0:
+        return []
+
+    status_list = []
+    current_container = None
+    current_entry = {}
+
+    try:
+        with open(path, 'r') as f:
+            for line in f:
+                line = line.rstrip()
+                if not line or line.startswith("#"):
+                    continue
+
+                # 1. New Container block
+                if not line.startswith(" "):
+                    current_container = line.split(":")[0].strip()
+                    continue
+
+                # 2. New List Item
+                if "-" in line:
+                    if current_entry:
+                        status_list.append(current_entry)
+                    current_entry = {"container": current_container}
+                    line = line.split("-", 1)[1]
+
+                # 3. Attributes
+                if ":" in line:
+                    key, value = line.split(":", 1)
+                    key = key.strip()
+                    value = value.strip().strip('"').strip("'")
+                    if key:
+                        current_entry[key] = value
+
+            if current_entry:
+                status_list.append(current_entry)
+
+    except Exception:
+        return []
+
+    return status_list
+
 def parse_status_detailed(path):
-    table = []
+    """
+    Parses status_detailed.yml into a flat list.
+    Returns a list of entries or [] on error/empty.
+    """
+    if not os.path.exists(path) or os.path.getsize(path) == 0:
+        return []
+
+    detailed_list = []
     current_container = None
     current_entry = {}
 
-    with open(path, 'r') as f:
-        for line in f:
-            line = line.rstrip()
-            if not line or line.startswith("#"):
-                continue
+    try:
+        with open(path, 'r') as f:
+            for line in f:
+                line = line.rstrip()
+                if not line or line.startswith("#"):
+                    continue
 
-            # Identify a new container (no leading spaces)
-            if not line.startswith(" "):
-                current_container = line.split(":")[0].strip()
-                continue
+                if not line.startswith(" "):
+                    current_container = line.split(":")[0].strip()
+                    continue
 
-            # Identify the start of a list item
-            if "-" in line:
-                # If we were already building an entry, save it before starting a new one
-                if current_entry:
-                    table.append(current_entry)
-                
-                current_entry = {"container": current_container}
-                # Check if there's data on the same line as the dash
-                line = line.split("-", 1)[1]
+                if "-" in line:
+                    if current_entry:
+                        detailed_list.append(current_entry)
+                    current_entry = {"container": current_container}
+                    line = line.split("-", 1)[1]
 
-            # Parse key-value pairs (timestamp, result, message)
-            if ":" in line:
-                key, value = line.split(":", 1)
-                key = key.strip()
-                value = value.strip().strip('"') # Remove quotes
-                
-                if key in ["timestamp", "result", "message"]:
-                    current_entry[key] = value
+                if ":" in line:
+                    parts = line.split(":", 1)
+                    key = parts[0].strip()
+                    value = parts[1].strip().strip('"').strip("'")
+                    if key:
+                        current_entry[key] = value
 
-        # Append the very last entry processed
-        if current_entry:
-            table.append(current_entry)
+            if current_entry:
+                detailed_list.append(current_entry)
 
-    return table
+    except Exception:
+        return []
 
-def parse_status(path, limit=10):
-    errors = []
-    current_container = None
-    current_entry = {}
-
-    with open(path, 'r') as f:
-        for line in f:
-            line = line.rstrip()
-            if not line or line.startswith("#"):
-                continue
-
-            # 1. Identify Container (e.g., vault:)
-            if not line.startswith(" "):
-                current_container = line.split(":")[0].strip()
-                continue
-
-            # 2. Identify start of list item
-            if "-" in line:
-                if current_entry and current_entry.get("backupstatus") == "error":
-                    errors.append(current_entry)
-                
-                current_entry = {"container": current_container}
-                line = line.split("-", 1)[1]
-
-            # 3. Parse timestamp and backupstatus
-            if ":" in line:
-                key, value = line.split(":", 1)
-                key = key.strip()
-                value = value.strip().strip('"')
-                
-                if key in ["timestamp", "backupstatus"]:
-                    current_entry[key] = value
-
-        # Check the final entry in the file
-        if current_entry and current_entry.get("backupstatus") == "error":
-            errors.append(current_entry)
-
-    # Return the last 'limit' items (newest at the bottom of file)
-    return errors[-limit:]
-
+    return detailed_list
