@@ -9,7 +9,7 @@ from .version_parser import parse_container_version
 from .stauts_parser import parse_status_detailed, parse_status
 from .database import SessionLocal, ContainerCache
 
-CONFIG_ROOT = "../configs"
+CONFIG_ROOT = "/configs"
 CONFIG_PATH = f"{CONFIG_ROOT}/params/config.ini"
 VERSION_PATH = f"{CONFIG_ROOT}/params/docker.version/"
 RESULTS_PATH = f"{CONFIG_ROOT}/params/results/"
