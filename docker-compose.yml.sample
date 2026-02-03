@@ -7,7 +7,7 @@ services:
     volumes:
       - /home/master/docker_backup/config.ini:/configs/params/config.ini:ro # config.ini from docker_backup engine
       - /home/master/docker_backup/docker.version:/configs/params/docker.version:ro # docker.versions
-      - /home/master/docker_backup/result:/configs/params/result:ro # results: logs
+      - /home/master/docker_backup/results:/configs/params/results:ro # results: logs
       - /backupssh:/backupssh:ro # Backup target, to list files
       - /var/run/docker.sock:/var/run/docker.sock # Access to Docker socket to read data
       - /proc:/host/proc:ro # Access to system status
