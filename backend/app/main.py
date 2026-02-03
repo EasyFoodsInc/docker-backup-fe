@@ -98,3 +98,5 @@ def backups(container):
     cfg = parse_config(CONFIG_PATH)
     base = cfg["master_params"]["destination_path"]
     return scan_backups(base, container)
+
+logger.info("Backup Dashboard API initialized.")
