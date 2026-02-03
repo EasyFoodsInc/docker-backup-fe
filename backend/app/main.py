@@ -10,8 +10,8 @@ from .database import SessionLocal, ContainerCache
 
 CONFIG_ROOT = "/configs"
 CONFIG_PATH = f"{CONFIG_ROOT}/params/config.ini"
-VERSION_PATH = f"{CONFIG_ROOT}/params/docker.version/"
-RESULTS_PATH = f"{CONFIG_ROOT}/params/results/"
+VERSION_PATH = f"{CONFIG_ROOT}/params/docker.version"
+RESULTS_PATH = f"{CONFIG_ROOT}/params/results"
 
 app = FastAPI(title="Backup Dashboard API")
 
