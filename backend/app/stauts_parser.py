@@ -1,5 +1,9 @@
 import os
-from main import logger
+import logging # Import logging directly
+
+# Setup a local logger for this module
+# Using __name__ is standard practice; it will show as 'stauts_parser' in logs
+logger = logging.getLogger("uvicorn.error")
 
 def parse_status(path):
     """
@@ -10,6 +14,7 @@ def parse_status(path):
     logger.info(f"Parsing status file at: {path}")
 
     if not os.path.exists(path) or os.path.getsize(path) == 0:
+        logger.warning(f"Status file does not exist or is empty: {path}")
         return []
 
     status_list = []
@@ -46,7 +51,8 @@ def parse_status(path):
             if current_entry:
                 status_list.append(current_entry)
 
-    except Exception:
+    except Exception as e:
+        logger.error(f"Error parsing status file: {e}") # This is a life-saver for debugging!        
         return []
 
     return status_list
@@ -60,6 +66,7 @@ def parse_status_detailed(path):
     logger.info(f"Parsing status file at: {path}")
 
     if not os.path.exists(path) or os.path.getsize(path) == 0:
+        logger.error(f"Error parsing status file: {path} does not exist or is empty")
         return []
 
     detailed_list = []
@@ -94,6 +101,7 @@ def parse_status_detailed(path):
                 detailed_list.append(current_entry)
 
     except Exception:
+        logger.error(f"Error parsing status file: {e}") # This is a life-saver for debugging!        
         return []
 
     return detailed_list

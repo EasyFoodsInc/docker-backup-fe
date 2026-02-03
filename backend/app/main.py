@@ -92,6 +92,9 @@ def backups(container):
 
 # Replace your current logger setup with this:
 logger = logging.getLogger("uvicorn.error")
+logger.setLevel(logging.INFO) # Force the level to INFO
 
-# Now use it as usual
-logger.info("Backup Dashboard API initialized.")
+@app.on_event("startup")
+async def startup_event():
+    # This will now appear AFTER "Application startup complete"
+    logger.info("Backup Dashboard API initialized and ready to serve.")
