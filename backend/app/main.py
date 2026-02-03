@@ -9,15 +9,6 @@ from .stauts_parser import parse_status_detailed, parse_status
 from .database import SessionLocal, ContainerCache
 import logging
 
-# Configure logging to output to stdout
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(levelname)s:  %(asctime)s - %(message)s",
-    handlers=[logging.StreamHandler()]
-)
-
-logger = logging.getLogger("backup-api")
-
 CONFIG_ROOT = "/configs"
 CONFIG_PATH = f"{CONFIG_ROOT}/params/config.ini"
 VERSION_PATH = f"{CONFIG_ROOT}/params/docker.version"
@@ -99,4 +90,8 @@ def backups(container):
     base = cfg["master_params"]["destination_path"]
     return scan_backups(base, container)
 
+# Replace your current logger setup with this:
+logger = logging.getLogger("uvicorn.error")
+
+# Now use it as usual
 logger.info("Backup Dashboard API initialized.")
