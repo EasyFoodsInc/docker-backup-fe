@@ -46,7 +46,7 @@ def status_detailed():
 @app.get("/api/containers")
 def containers():
 
-    cfg = parse_config(CONFIG_PATH)
+    cfg = parse_config(CONFIG_PATH)["containers"]
     docker_containers = get_running_containers()
 
     session = SessionLocal()

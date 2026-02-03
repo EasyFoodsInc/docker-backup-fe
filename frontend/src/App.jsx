@@ -42,7 +42,6 @@ export default function App() {
 
     try {
       const c = await api.get("/config")
-      console.log("CONFIG:", c.data)
       setConfig(c.data)
     } catch (error) {
       console.error("Error loading data from API:", error)
@@ -57,7 +56,6 @@ export default function App() {
 
     try {
       const rs = API_DEBUG ? await apiDebug.get("/status") : await api.get("/status")
-      console.log("STATUS:", rs.data)
       setStatus(rs.data)
     } catch (error) {
       console.error("Error loading data from API:", error)
@@ -65,7 +63,6 @@ export default function App() {
 
     try {
       const rsd = API_DEBUG ? await apiDebug.get("/status_detailed") : await api.get("/status_detailed")
-      console.log("STATUS DETAILED:", rsd.data)
       setStatusDetailed(rsd.data)
     } catch (error) {
       console.error("Error loading data from API:", error)

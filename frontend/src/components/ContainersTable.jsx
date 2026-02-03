@@ -16,6 +16,8 @@ import { api } from "../api"
 
 export default function ContainersTable({ containers, config }) {
 
+  console.log(containers)
+
   const [cfgModal,setCfgModal] = useState(false)
   const [filesModal,setFilesModal] = useState(false)
 
@@ -123,7 +125,7 @@ export default function ContainersTable({ containers, config }) {
             <Button
               icon="pi pi-cog"
               text
-              onClick={()=>openConfig(row.name, config)}
+              onClick={()=>openConfig(row.name)}
             />
           )}
         />
