@@ -1,7 +1,3 @@
-This looks like a solid monitoring tool for your backup engine! I've structured the README to highlight the system-level access your backend requires and the modern stack you're using.
-
----
-
 # 🐳 Docker Backup Dashboard
 
 A full-stack monitoring solution designed to provide real-time visibility into the **docker-backup** engine. This dashboard allows you to track container states, verify backup integrity, and monitor system resources through a clean, unified interface.
@@ -15,8 +11,6 @@ A full-stack monitoring solution designed to provide real-time visibility into t
 * System metrics via `/proc` and `/sys`.
 * Log/Config parsing from the `docker-backup` engine via shared volumes.
 
-
-
 ---
 
 ## 🚀 Getting Started
@@ -28,33 +22,30 @@ A full-stack monitoring solution designed to provide real-time visibility into t
 
 ### Installation & Deployment
 
-1. **Clone the repository**:
-```bash
-git clone https://github.com/raskitoma/docker-backup-fe.git
-cd docker-backup-fe
+**Clone the repository**:
 
+```bash
+git clone {Copy the git address}
+cd docker-backup-fe
 ```
 
+**Configuration**:
 
-2. **Configuration**:
 The dashboard expects specific files on the host system to function correctly:
+
 * `/home/master/docker_backup/config.ini`: Main engine configuration.
 * `/home/master/docker_backup/docker.version`: Version tracking.
 * `/home/master/docker_backup/results/`: Directory containing `.yml` status files.
 
+**Start the application**:
 
-3. **Start the application**:
 ```bash
 docker compose up -d --build
-
 ```
 
+**Access the Dashboard**:
 
-4. **Access the Dashboard**:
-* **Frontend**: [http://localhost:4173](https://www.google.com/search?q=http://localhost:4173)
-* **Backend API**: [http://localhost:18246/docs](https://www.google.com/search?q=http://localhost:18246/docs) (Swagger UI)
-
-
+* **Frontend**: [http://localhost:4173]
 
 ---
 
@@ -103,7 +94,3 @@ The backend requires elevated read-only access to monitor the host environment e
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 **License**: [Specify your license, e.g., MIT]
-
----
-
-**Would you like me to add a "Troubleshooting" section specifically for common Docker volume permission issues?**
